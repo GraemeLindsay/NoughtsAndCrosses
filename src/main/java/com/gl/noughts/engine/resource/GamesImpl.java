@@ -18,16 +18,22 @@ public class GamesImpl extends ResourceSupport implements Games {
     }
 
     public List<Game> getList() {
+
         return new ArrayList<Game>(this.games.values());
     }
 
     @Override
     public Game find(String id) {
+
+        if (games.containsKey(id)) {
+            return games.get(id);
+        }
         return null;
     }
 
     @Override
     public void add(Game game) {
+
         this.games.put(game.getIdString(), game);
     }
 }

@@ -1,4 +1,4 @@
-package com.gl.noughts.engine.game;
+package com.gl.noughts.engine.resource;
 
 import org.junit.Test;
 

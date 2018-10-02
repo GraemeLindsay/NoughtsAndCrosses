@@ -1,4 +1,4 @@
-package com.gl.noughts.engine.app;
+package com.gl.noughts.engine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

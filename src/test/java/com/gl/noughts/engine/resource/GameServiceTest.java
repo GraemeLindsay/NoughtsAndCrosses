@@ -1,5 +1,7 @@
-package com.gl.noughts.engine.game;
+package com.gl.noughts.engine.resource;
 
+import com.gl.noughts.engine.service.GameService;
+import com.gl.noughts.engine.service.GameServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package com.gl.noughts.engine.app;
 
-import com.gl.noughts.engine.game.Game;
-import com.gl.noughts.engine.game.GameService;
+import com.gl.noughts.engine.resource.Game;
+import com.gl.noughts.engine.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class GameController {
     public HttpEntity<Game> createGame() {
         Game game = gameService.createGame();
 
-        game.add(linkTo(methodOn(GamesController.class).viewGames()).withSelfRel());
+        game.add(linkTo(methodOn(GameController.class).viewGame()).withSelfRel());
         return new ResponseEntity<>(game, HttpStatus.OK);
     }
 

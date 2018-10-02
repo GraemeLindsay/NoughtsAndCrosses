@@ -1,6 +1,8 @@
 package com.gl.noughts.engine.app;
 
-import com.gl.noughts.engine.game.GamesImpl;
+import com.gl.noughts.engine.resource.Games;
+import com.gl.noughts.engine.resource.GamesImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class GamesController {
-    @RequestMapping(path="/games", method = RequestMethod.GET)
-    public HttpEntity<GamesImpl> viewGames() {
-        GamesImpl games = new GamesImpl();
+    @Autowired
+    Games games;
 
-        games.add(linkTo(methodOn(GamesController.class).viewGames()).withSelfRel());
+    @RequestMapping(path="/games", method = RequestMethod.GET)
+    public HttpEntity<Games> viewGames() {
+
+        games.getList();
+//        games.add(linkTo(methodOn(GamesController.class).viewGames()).withSelfRel());
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 }

@@ -25,7 +25,7 @@ public class GameController {
         Game game = gameService.createGame();
 
         game.add(linkTo(methodOn(GameController.class).viewGame(game.getIdString())).withSelfRel());
-        return new ResponseEntity<>(game, HttpStatus.OK);
+        return new ResponseEntity<>(game, HttpStatus.CREATED);
     }
 
     @RequestMapping(path="/game/{id}", method = RequestMethod.GET)

@@ -31,8 +31,10 @@ public class GameController {
     @RequestMapping(path="/game/{id}", method = RequestMethod.GET)
     public HttpEntity<Game> viewGame(@PathVariable("id") String id) {
         Game game = gameService.getGame(id);
-
+        if (game == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
         game.add(linkTo(methodOn(GamesController.class).viewGames()).withSelfRel());
-        return new ResponseEntity<>(game, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(game);
     }
 }

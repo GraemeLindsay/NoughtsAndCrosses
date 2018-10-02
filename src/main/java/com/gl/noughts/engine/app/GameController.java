@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,13 +24,13 @@ public class GameController {
     public HttpEntity<Game> createGame() {
         Game game = gameService.createGame();
 
-        game.add(linkTo(methodOn(GameController.class).viewGame()).withSelfRel());
+        game.add(linkTo(methodOn(GameController.class).viewGame(game.getIdString())).withSelfRel());
         return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
-    @RequestMapping(path="/game", method = RequestMethod.GET)
-    public HttpEntity<Game> viewGame() {
-        Game game = new Game();
+    @RequestMapping(path="/game/{id}", method = RequestMethod.GET)
+    public HttpEntity<Game> viewGame(@PathVariable("id") String id) {
+        Game game = gameService.getGame(id);
 
         game.add(linkTo(methodOn(GamesController.class).viewGames()).withSelfRel());
         return new ResponseEntity<>(game, HttpStatus.OK);

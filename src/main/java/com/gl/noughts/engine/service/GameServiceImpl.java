@@ -13,4 +13,8 @@ public class GameServiceImpl implements GameService {
         games.add(game);
         return game;
     }
+
+    @Override
+    public Game getGame(String id) {
+        return games.find(id);    }
 }

@@ -22,6 +22,11 @@ public class GamesImpl extends ResourceSupport implements Games {
     }
 
     @Override
+    public Game find(String id) {
+        return null;
+    }
+
+    @Override
     public void add(Game game) {
         this.games.put(game.getIdString(), game);
     }

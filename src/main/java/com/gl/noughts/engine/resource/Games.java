@@ -6,4 +6,6 @@ public interface Games {
     void add(Game game);
 
     List<Game> getList();
+
+    Game find(String id);
 }

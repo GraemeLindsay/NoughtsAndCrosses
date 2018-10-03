@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+apply plugin: se.transmode.gradle.plugins.docker.DockerPlugin
+
+setPropertyValue('DOCKER_PROJECT', 'GL')
+setPropertyValue('DOCKER_IMAGE_NAME', 'game-engine')
+setPropertyValue('DOCKER_PUBLISH_URL', null)
+
+
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+task copyWAR(type: Copy) {
+    dependsOn assemble
+    from war.outputs
+    into "$buildDir/docker"
+}
+
+task copyScript(type: Copy) {
+    from 'src/main/docker/docker-entrypoint.sh'
+    into "$buildDir/docker"
+}
+
+task dockerLogout(type: Exec) {
+    group = "docker"
+    executable "docker"
+    args "logout", "$DOCKER_REGISTRY_URL"
+}
+
+task buildDockerImage(type: Docker, dependsOn: ['copyWAR', 'copyScript']) {
+    group = "docker"
+    push = false
+    tag = DOCKER_PROJECT + "/" + DOCKER_IMAGE_NAME
+    dockerfile = file('src/main/docker/Dockerfile')
+    finalizedBy 'localDockerImageCleanUp'
+}
+
+task localDockerImageCleanUp(type: Exec) {
+    group = "docker"
+    executable "sh"
+    args "-c", 'docker images -f "dangling=true" -q --no-trunc | xargs -r docker rmi -f'
+}

@@ -11,7 +11,7 @@ public class GameTest {
     @Test
     public void gameWillHaveNonNullId() {
         Game game = new Game();
-        assertThat(game.getId(), is(notNullValue()));
+        assertThat(game.getIdString(), is(notNullValue()));
     }
 
 }

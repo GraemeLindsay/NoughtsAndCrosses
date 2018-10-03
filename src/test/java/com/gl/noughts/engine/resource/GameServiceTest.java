@@ -4,20 +4,23 @@ import com.gl.noughts.engine.service.GameService;
 import com.gl.noughts.engine.service.GameServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class GameServiceTest {
-    private GameService gameService;
+    @InjectMocks
+    private GameService gameService = new GameServiceImpl();
 
-    @Before
-    public void setUp() {
-        gameService = new GameServiceImpl();
-    }
+    @Mock
+    Games games;
 
     @Test
     public void createGameReturnsGame() {

@@ -9,7 +9,7 @@ buildscript {
 
 apply plugin: se.transmode.gradle.plugins.docker.DockerPlugin
 
-setPropertyValue('DOCKER_PROJECT', 'GL')
+setPropertyValue('DOCKER_PROJECT', 'gl')
 setPropertyValue('DOCKER_IMAGE_NAME', 'game-engine')
 setPropertyValue('DOCKER_PUBLISH_URL', null)
 
@@ -21,6 +21,7 @@ configurations.all {
 
 task copyWAR(type: Copy) {
     dependsOn assemble
+    println("Copying WAR from [${war.outputs.getFiles().asPath}] to [$buildDir/docker]")
     from war.outputs
     into "$buildDir/docker"
 }
@@ -28,12 +29,6 @@ task copyWAR(type: Copy) {
 task copyScript(type: Copy) {
     from 'src/main/docker/docker-entrypoint.sh'
     into "$buildDir/docker"
-}
-
-task dockerLogout(type: Exec) {
-    group = "docker"
-    executable "docker"
-    args "logout", "$DOCKER_REGISTRY_URL"
 }
 
 task buildDockerImage(type: Docker, dependsOn: ['copyWAR', 'copyScript']) {

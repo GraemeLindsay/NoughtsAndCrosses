@@ -1,0 +1,13 @@
+def setPropertyValue(propertyName, defaultValue) {
+    if (!project.hasProperty(propertyName)) {
+        if (project.hasProperty("teamcity") && teamcity.getProperty(propertyName) != null) {
+            ext[propertyName] = teamcity[propertyName]
+        } else {
+            ext[propertyName] = defaultValue
+        }
+    }
+}
+
+ext {
+    setPropertyValue = this.&setPropertyValue
+}

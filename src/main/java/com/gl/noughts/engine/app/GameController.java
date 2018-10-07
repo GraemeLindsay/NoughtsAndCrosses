@@ -24,7 +24,7 @@ public class GameController {
     public HttpEntity<Game> createGame() {
         Game game = gameService.createGame();
 
-        game.add(linkTo(methodOn(GameController.class).viewGame(game.getIdString())).withSelfRel());
+        game.add(linkTo(methodOn(GameController.class).viewGame(game.getGameId())).withSelfRel());
         return new ResponseEntity<>(game, HttpStatus.CREATED);
     }
 

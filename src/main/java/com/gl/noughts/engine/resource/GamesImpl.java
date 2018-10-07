@@ -34,6 +34,6 @@ public class GamesImpl extends ResourceSupport implements Games {
     @Override
     public void add(Game game) {
 
-        this.games.put(game.getIdString(), game);
+        this.games.put(game.getGameId(), game);
     }
 }

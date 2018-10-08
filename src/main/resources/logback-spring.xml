@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %date{ISO8601} [%thread] %-5level %logger{36} %X{tenant} : %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root log level can be set using -DlogLevel=<desired logging level>
+    Default log level for root logger is debug. All child loggers will inherit this property -->
+    <root level="${logLevel:-debug}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!-- shuts down logback and releases associated resources when JVM is shutdown -->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+</configuration>

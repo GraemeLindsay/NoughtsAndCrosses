@@ -2,9 +2,11 @@ package com.gl.noughts.engine.resource;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.junit.Test;
 
+import java.util.Arrays;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -23,7 +25,18 @@ public class GameTest {
         assertThat(game.getGameId(), is(validUUID()));
     }
 
-    private Matcher<Object> validUUID() {
+    @Test
+    public void gameInitialStateIsAllNulls() {
+        Game game = new Game();
+        assertThat(game.getState(), is(equalTo(
+                Arrays.asList(
+                        null, null, null,
+                        null, null, null,
+                        null, null, null)
+        )));
+    }
+
+    private BaseMatcher validUUID() {
         return new BaseMatcher() {
 
             @Override
